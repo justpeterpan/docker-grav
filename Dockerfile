@@ -1,4 +1,4 @@
-FROM php:7.2-apache
+FROM php:7.3.5-apache
 LABEL maintainer="Andy Miller <rhuk@getgrav.org> (@rhukster)"
 
 # Enable Apache Rewrite + Expires Module
@@ -29,7 +29,7 @@ RUN { \
 		echo 'post_max_size=128M'; \
 	} > /usr/local/etc/php/conf.d/php-recommended.ini
 
- # provide container inside image for data persistance
+# provide container inside image for data persistance
 # VOLUME /var/www/html
 
 RUN pecl install apcu \
@@ -45,7 +45,7 @@ RUN usermod -a -G newuser www-data
 USER www-data
 
 # Define Grav version and expected SHA1 signature
-ENV GRAV_VERSION 1.5.5
+ENV GRAV_VERSION 1.6.9
 ENV GRAV_SHA1 af0433facdae1afeb1d973a66db2315c5022b10d
 
 # Install grav
@@ -57,7 +57,7 @@ RUN curl -o grav-admin.zip -SL https://getgrav.org/download/core/grav-admin/${GR
     rm grav-admin.zip
 
 # Return to root user
-USER root
+# USER root
 
 # Copy init scripts
 # COPY docker-entrypoint.sh /entrypoint.sh
