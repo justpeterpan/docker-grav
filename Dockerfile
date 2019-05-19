@@ -37,7 +37,11 @@ RUN pecl install apcu \
     && docker-php-ext-enable apcu yaml
 
 # Set user to www-data
+ARG UID=1026
+ARG GUID=100
 RUN chown www-data:www-data /var/www
+RUN useradd -u $UID newuser
+RUN usermod -a -G newuser www-data
 USER www-data
 
 # Define Grav version and expected SHA1 signature
